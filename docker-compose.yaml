@@ -1,0 +1,13 @@
+version: '3'
+services:
+  php:
+    build:
+      context: ./
+    container_name: okta-api
+    volumes:
+      - .:/var/task:delegated
+    command: php
+    tty: true
+
+networks:
+  default: { name: meq }
