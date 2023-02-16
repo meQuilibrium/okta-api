@@ -122,6 +122,45 @@ class OktaApiClient
     }
 
     /**
+     * @param string $groupId
+     * @return object[]
+     */
+    public function listGroupMembers($groupId): array
+    {
+        return $this->request(
+            'GET',
+            sprintf('api/v1/groups/%s/users', $groupId)
+        );
+    }
+
+    /**
+     * @param string $groupId
+     * @param string $userId
+     * @return void
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function addMemberToGroup($groupId, $userId)
+    {
+        $this->request(
+            'PUT',
+            sprintf('api/v1/groups/%s/users/%s', $groupId, $userId)
+        );
+    }
+
+    /**
+     * @param string $groupId
+     * @param string $userId
+     * @return void
+     */
+    public function removeMemberFromGroup($groupId, $userId)
+    {
+        $this->request(
+            'DELETE',
+            sprintf('api/v1/groups/%s/users/%s', $groupId, $userId)
+        );
+    }
+
+    /**
      * @return object[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
