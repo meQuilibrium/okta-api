@@ -21,19 +21,18 @@ In composer.json, add a repository:
 Then install with composer:
 
 ```shell
-composer install meq/okta-api
+composer require meq/okta-api
 ```
 
 ## Usage
 
 ```php
-
 use Meq\OktaApi\OktaApiClient;
 
-$service = new OktaApiClient('https://your-organization-id.okta.com', $apiToken);
+$oktaApiClient = new OktaApiClient('https://your-organization-id.okta.com', $apiToken);
 
 // List groups
-$groups = $service->listGroups();
+$groups = $oktaApiClient->listGroups();
 ```
 
 ## Integration testing

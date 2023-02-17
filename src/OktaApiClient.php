@@ -26,6 +26,42 @@ class OktaApiClient
     }
 
     /**
+     * Get a user from Okta, optionally specifying an Authorization header to override API token auth.
+     *
+     * @param string $userId
+     * @param ?string $authorizationHeader
+     * @return object
+     */
+    public function getUser($userId = 'me', $authorizationHeader = null)
+    {
+        $options = $authorizationHeader ? ['headers' => ['Authorization' => $authorizationHeader]] : [];
+
+        $user = $this->request(
+            'GET',
+            sprintf('api/v1/users/%s', $userId),
+            $options
+        );
+
+        return $user;
+    }
+
+    /**
+     * Get a user's groups
+     *
+     * @param string $userId
+     * @return object[]
+     */
+    public function getUserGroups(string $userId)
+    {
+        $groups = $this->request(
+            'GET',
+            sprintf('api/v1/users/%s/groups', $userId)
+        );
+
+        return $groups;
+    }
+
+    /**
      * Get an array containing all the Okta groups
      *
      * @param string $search
@@ -34,12 +70,12 @@ class OktaApiClient
     public function listGroups($search = null): array
     {
         if (!empty($search)) {
-            $search_query = http_build_query(['search' => $search]);
+            $searchQuery = http_build_query(['search' => $search]);
         }
 
         $groups = $this->request(
             'GET',
-            sprintf('api/v1/groups?%s', $search_query ?? '')
+            sprintf('api/v1/groups?%s', $searchQuery ?? '')
         );
 
         return $groups;
