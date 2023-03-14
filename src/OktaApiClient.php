@@ -273,11 +273,11 @@ class OktaApiClient
     private function request($method, $uri, array $options = [])
     {
         $options['headers'] = array_merge(
-            $options['headers'] ?? [],
             [
                 'Accept' => 'application/json',
                 'Authorization' => sprintf('SSWS %s', $this->oktaApiToken)
-            ]
+            ],
+            $options['headers'] ?? []
         );
 
         $response = $this->httpClient->request(
