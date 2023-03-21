@@ -262,6 +262,20 @@ class OktaApiClient
         );
     }
 
+    /**
+     * Get user info for scopes provided in an OAuth2 access token
+     *
+     * @param string $accessCode
+     * @return object
+     */
+    public function getUserInfo($accessCode)
+    {
+        return $this->request(
+            'GET',
+            sprintf('oauth2/v1/userinfo'),
+            ['headers' => ['Authorization' => sprintf('Bearer %s', $accessCode)]]
+        );
+    }
 
     /**
      * @param string $method
