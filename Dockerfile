@@ -1,5 +1,5 @@
 # This must be compatible with stressys, okta-automations, and workforce-campaigns
-FROM php:7.1
+FROM php:7.4.29
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
